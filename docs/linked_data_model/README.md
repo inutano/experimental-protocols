@@ -10,7 +10,7 @@ Programs which produce the data in this linked data model must assign URIs for t
 
 Examples below are using fake ontology terms with prefix "proto", which currently not yet decided from which ontology we employ.
 
-The protocols are from [Defining transcribed regions using RNA-seq](http://www.nature.com/nprot/journal/v5/n2/full/nprot.2009.229.html).
+The protocol is from the article of the nature protocols, [Defining transcribed regions using RNA-seq](http://www.nature.com/nprot/journal/v5/n2/full/nprot.2009.229.html).
 
 ```ttl
 @prefix proto: <https://ontologies-to-be-defined.org/resources/> .
