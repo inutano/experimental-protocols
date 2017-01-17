@@ -105,7 +105,7 @@ mylab:MultiOmics a proto:Protocol ;
 
 A process must have input and output. A process can have multiple inputs/outputs. If a process have children, then the input of the first child or the output of the last child would be the input/output of the parent.
 
-```
+```ttl
 mylab:RNAseq1.1.1 a proto:Process ;
   rdfs:label "Preculture of S. pombe" ;
   proto:has_input mylab:RNAseq0-1, mylab:RNAseq0-2 ;
