@@ -131,14 +131,14 @@ mylab:RNAseq1 a proto:Process .
 mylab:RNAseq2 a proto:Process .
 
 # process 1 is followed by process 2
-mylab:RNASeq1 proto:is_followed_by mylab:RNAseq2 .
+mylab:RNAseq1 proto:is_followed_by mylab:RNAseq2 .
 
 # process 1 has a condition, and the condition has a link to the next process to be processed if the condition was fulfilled
-mylab:RNASeq1 proto:has_condition mylab:RNAseq1Cond ;
+mylab:RNAseq1 proto:has_condition mylab:RNAseq1Cond ;
 mylab:RNAseq1Cond proto:process mylab:RNAseq2 .
 
 # In this case, condition is just an evaluation of exit status.
-mylab:RNASeq1Cond rdfs:label "Is mylab:RNASeq1 finished correctly?"
+mylab:RNAseq1Cond rdfs:label "Is mylab:RNAseq1 finished correctly?"
 ```
 
 Usually, the second process should be executed if the previous one is processed correctly. So the condition can be omitted, and processes are simply described as follows.
@@ -147,7 +147,7 @@ Usually, the second process should be executed if the previous one is processed 
 # two processes and a link between them
 mylab:RNAseq1 a proto:Process .
 mylab:RNAseq2 a proto:Process .
-mylab:RNASeq1 proto:is_followed_by mylab:RNAseq2 .
+mylab:RNAseq1 proto:is_followed_by mylab:RNAseq2 .
 ```
 
 ### Conditional switches
