@@ -212,6 +212,25 @@ mylab:RNAseq0-2 rdfs:label "YES media" .
 mylab:RNAseq1.1.1-1 rdfs:label "precultured yeast cells" .
 ```
 
-## The typed process
+A process can have an action type to be performed. Action type may be used to specify a mapping of the process and the physical operation, especially by the automated system.
+
+```ttl
+@prefix action: <https://action-ontologies-to-be-defined.org/resources/>
+
+mylab:RNAseq1.1.1 a proto:Process ;
+  rdfs:label "Preculture of S. pombe" ;
+  proto:has_input mylab:RNAseq0-1, mylab:RNAseq0-2 ;
+  proto:has_output mylab:RNAseq1.1.1-1 ;
+  proto:has_action action:Culture .
+
+mylab:RNAseq0-1 rdfs:label "yeast cells picked from a YES agar plate" .
+mylab:RNAseq0-2 rdfs:label "YES media" .
+
+mylab:RNAseq1.1.1-1 rdfs:label "precultured yeast cells" .
+```
+
+We will provide the minimum set of the actions performed frequently in biological experimental protocols in the action ontology.
+
+## The description of the entity as input/output
 
 (to be written)
