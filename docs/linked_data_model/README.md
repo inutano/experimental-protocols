@@ -2,15 +2,15 @@
 
 The model to represent experimental protocols as a workflow.
 
-## The basic structure of the protocol description
+The protocol is from the article of the nature protocols, [Defining transcribed regions using RNA-seq](http://www.nature.com/nprot/journal/v5/n2/full/nprot.2009.229.html).
 
-A protocol as a workflow consists of one or more processes (procedures) connected by the predicate which connects processes each other in order of the execution. A process should have a label.
+## The basic structure of the workflow
 
-Programs which produce the data in this linked data model must assign URIs for the protocol and each process. Though there is no strict rules for designing URIs, but here we use <https://mylab.org/resources/RNAseq> for the URI of the protocol, and URIs with indexes connceted by dots as URIs of the processes. Multiple dots indicate the depth of the nested processes.
+A protocol as a workflow consists of one or more processes (procedures) linked by the predicate which connects processes each other in order of the execution. A process should have a label.
+
+Programs to generate the data in this linked data model must assign URIs for the protocol and each process. Though there is no strict rules for the URI design, but here, for example, we use <https://mylab.org/resources/RNAseq> for the URI of the protocol, and URIs with indexes connected by dots for the processes. Multiple dots indicate the depth of the nested processes.
 
 Examples below are using fake ontology terms with prefix "proto", which currently not yet decided from which ontology we employ.
-
-The protocol is from the article of the nature protocols, [Defining transcribed regions using RNA-seq](http://www.nature.com/nprot/journal/v5/n2/full/nprot.2009.229.html).
 
 ```ttl
 @prefix proto: <https://ontologies-to-be-defined.org/resources/> .
@@ -18,16 +18,13 @@ The protocol is from the article of the nature protocols, [Defining transcribed 
 @prefix mylab: <https://mylab.org/resources/> .
 
 # RNA-seq protocol is an instance of Protocol class
-
 mylab:RNAseq a proto:Protocol ;
   rdfs:label "Defining transcribed regions using RNA-seq" .
 
 # RNA-seq protocol has three processes
-
 mylab:RNAseq proto:has_process mylab:RNAseq.1, mylab:RNAseq.2, mylab:RNAseq.3 .
 
 # Define three processes
-
 mylab:RNAseq.1 a proto:Process ;
   rdfs:label "Yeast culture" .
 
@@ -38,7 +35,6 @@ mylab:RNAseq.3 a proto:Process ;
   rdfs:label "RNA purification" .
 
 # Order of the execution
-
 mylab:RNAseq.1 proto:is_followed_by mylab:RNAseq.2 .
 mylab:RNAseq.2 proto:is_followed_by mylab:RNAseq.3 .
 ```
@@ -99,22 +95,6 @@ Note that the Protocol class is a special class inherited from the Process class
 ```ttl
 mylab:MultiOmics a proto:Protocol ;
   proto:has_process mylab:Exome, mylab:RNAseq, mylab:ChIPseq .
-```
-
-## The structure of the process description
-
-A process must have input and output. A process can have multiple inputs/outputs. If a process have children, then the input of the first child or the output of the last child would be the input/output of the parent.
-
-```ttl
-mylab:RNAseq1.1.1 a proto:Process ;
-  rdfs:label "Preculture of S. pombe" ;
-  proto:has_input mylab:RNAseq0-1, mylab:RNAseq0-2 ;
-  proto:has_output mylab:RNAseq1.1.1-1 .
-
-mylab:RNAseq0-1 rdfs:label "yeast cells picked from a YES agar plate" .
-mylab:RNAseq0-2 rdfs:label "YES media" .
-
-mylab:RNAseq1.1.1-1 rdfs:label "precultured yeast cells" .
 ```
 
 ## Conditionals and loops
@@ -214,6 +194,22 @@ mylab:RNAseq1.3 a proto:Process ;
   rdfs:label "Process 1 Repeat 1" ;
   proto:has_input mylab:RNAseq1.2-1 ;
   proto:has_output mylab:RNAseq1.3-1 .
+```
+
+## The description of the process
+
+A process must have a label, input, and output. A process can have multiple inputs/outputs. If a process have children, then the input of the first child would be the input of the parent, and the output of the last child would be the output.
+
+```ttl
+mylab:RNAseq1.1.1 a proto:Process ;
+  rdfs:label "Preculture of S. pombe" ;
+  proto:has_input mylab:RNAseq0-1, mylab:RNAseq0-2 ;
+  proto:has_output mylab:RNAseq1.1.1-1 .
+
+mylab:RNAseq0-1 rdfs:label "yeast cells picked from a YES agar plate" .
+mylab:RNAseq0-2 rdfs:label "YES media" .
+
+mylab:RNAseq1.1.1-1 rdfs:label "precultured yeast cells" .
 ```
 
 ## The typed process
