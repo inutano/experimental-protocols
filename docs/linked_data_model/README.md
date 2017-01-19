@@ -217,15 +217,18 @@ A process can have an action type to be performed. Action type may be used to sp
 ```ttl
 @prefix action: <https://action-ontologies-to-be-defined.org/resources/>
 
+# description of the process
 mylab:RNAseq1.1.1 a proto:Process ;
   rdfs:label "Preculture of S. pombe" ;
   proto:has_input mylab:RNAseq0-1, mylab:RNAseq0-2 ;
   proto:has_output mylab:RNAseq1.1.1-1 ;
   proto:has_action action:Culture .
 
+# input, 0 means 'prepared by default, not an output of the process'
 mylab:RNAseq0-1 rdfs:label "yeast cells picked from a YES agar plate" .
 mylab:RNAseq0-2 rdfs:label "YES media" .
 
+# output, 1 means 'the first output of the process'
 mylab:RNAseq1.1.1-1 rdfs:label "precultured yeast cells" .
 ```
 
@@ -234,3 +237,36 @@ We will provide the minimum set of the actions performed frequently in biologica
 ## The description of the entity as input/output
 
 (to be written)
+
+```ttl
+@prefix obo: <http://purl.obolibrary.org/obo/>
+
+# description of the process
+mylab:RNAseq1.1.1 a proto:Process ;
+  rdfs:label "Preculture of S. pombe" ;
+  proto:has_input mylab:RNAseq0-1, mylab:RNAseq0-2 ;
+  proto:has_output mylab:RNAseq1.1.1-1 ;
+  proto:has_action action:Culture .
+
+# input, 0 means 'prepared by default, not an output of the process'
+
+# input 0-1 has no specific attributes
+mylab:RNAseq0-1 rdfs:label "yeast cells picked from a YES agar plate" .
+
+# input 0-2 has a volume specification
+mylab:RNAseq0-2 rdfs:label "YES media" ;
+  proto:has_volume [
+    a obo:UO_0000095; # volume unit from unit ontology
+    proto:has_unit obo:UO_0000098; # milliliter from unit ontology
+    rdf:value 30 .
+  ] .
+
+# output, 1 means 'the first output of the process'
+# output 1 has a density
+mylab:RNAseq1.1.1-1 rdfs:label "precultured yeast cells" ;
+  proto:has_density [
+    a proto:optical_density; # no O.D. definition was found in uo
+    proto:wavelength 595;
+    proto:maxValue 0.5 . # representing "< 0.5"
+  ] .
+```
